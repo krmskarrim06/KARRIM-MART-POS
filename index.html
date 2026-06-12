@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KARRIM MART POS SYSTEM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <img id="brandLogo" src="img/logo.png" alt="Logo KARRIM MART" class="brand-logo">
+        <div>
+          <h1 id="storeName">KARRIM MART</h1>
+          <p id="storeTagline">Belanja Mudah, Harga Bersahabat</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#kasir">Kasir</a>
+        <a href="#produk">Produk</a>
+        <a href="#stok">Stok</a>
+        <a href="#riwayat">Riwayat Transaksi</a>
+        <a href="#statistik">Statistik</a>
+        <a href="#pengaturan">Pengaturan</a>
+      </nav>
+
+      <div class="sidebar-card">
+        <h3>Panduan File Gambar</h3>
+        <p>
+          Pastikan nama file gambar sesuai dengan yang dipakai di script:
+          <b>logo.png</b>, <b>qris.png</b>, <b>gitar.jpg</b>, <b>senar.jpg</b>, <b>pick.jpg</b>, <b>capo.jpg</b>, <b>ampli.jpg</b>, <b>mic.jpg</b>, <b>kabel.jpg</b>, <b>stand.jpg</b>, <b>pedal.jpg</b>, <b>ukulele.jpg</b>.
+        </p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar" id="dashboard">
+        <div>
+          <p class="eyebrow">KARRIM MUSIC STORE POS</p>
+          <h2>Sistem Kasir Modern untuk Toko Alat Musik</h2>
+          <p class="subhead">Kelola produk, stok, transaksi, pembayaran, struk, dan statistik penjualan dalam satu halaman.</p>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="themeBtn" title="Dark Mode">🌙</button>
+          <button class="btn btn-primary" id="openCheckoutBtn">Mulai Transaksi</button>
+        </div>
+      </header>
+
+      <section class="hero-card">
+        <div class="hero-text">
+          <h3>Etalase alat musik dan aksesoris modern</h3>
+          <p>Simulasi kasir dengan keranjang, pembayaran tunai + kembalian, QRIS, transfer bank, e-wallet, riwayat transaksi, dan grafik barang terlaris.</p>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric"><span>Total Produk</span><strong id="metricProducts">0</strong></div>
+          <div class="metric"><span>Total Stok</span><strong id="metricStock">0</strong></div>
+          <div class="metric"><span>Total Omzet</span><strong>Rp <span id="metricOmzet">0</span></strong></div>
+        </div>
+      </section>
+
+      <section class="toolbar">
+        <input id="searchInput" class="search-input" type="text" placeholder="Cari produk musik..." />
+        <div class="category-row" id="categoryRow">
+          <button class="chip active" data-category="all">Semua</button>
+          <button class="chip" data-category="Gitar">Gitar</button>
+          <button class="chip" data-category="Aksesoris">Aksesoris</button>
+          <button class="chip" data-category="Audio">Audio</button>
+          <button class="chip" data-category="Efek">Efek</button>
+          <button class="chip" data-category="Ukulele">Ukulele</button>
+        </div>
+      </section>
+
+      <section class="layout-grid">
+        <section class="panel" id="produk">
+          <div class="panel-head">
+            <h3>Etalase Produk</h3>
+            <p>Pilih barang lalu masukkan ke keranjang.</p>
+          </div>
+          <div id="productGrid" class="product-grid"></div>
+        </section>
+
+        <aside class="panel cart-panel" id="kasir">
+          <div class="panel-head">
+            <h3>Keranjang Kasir</h3>
+            <p>Jumlah, total, dan diskon dihitung otomatis.</p>
+          </div>
+          <div id="cartList" class="cart-list"></div>
+          <div class="summary-box">
+            <div><span>Total Item</span><strong id="cartCount">0</strong></div>
+            <div><span>Subtotal</span><strong>Rp <span id="cartSubtotal">0</span></strong></div>
+          </div>
+          <button class="btn btn-primary full" id="checkoutBtn">Bayar Sekarang</button>
+          <button class="btn btn-secondary full" id="resetCartBtn">Reset Keranjang</button>
+          <button class="btn btn-danger full" id="resetSystemBtn">Reset Semua Data</button>
+        </aside>
+      </section>
+
+      <section class="layout-grid admin-layout" id="pengaturan">
+        <section class="panel" id="stok">
+          <div class="panel-head">
+            <h3>Admin Produk</h3>
+            <p>Tambah, edit, dan hapus produk alat musik.</p>
+          </div>
+
+          <form id="productForm" class="form-grid">
+            <input id="productCode" type="text" placeholder="Kode barang" required />
+            <input id="productName" type="text" placeholder="Nama produk" required />
+            <input id="productPrice" type="number" placeholder="Harga" required min="1000" />
+            <input id="productStock" type="number" placeholder="Stok" required min="0" />
+            <input id="productCategory" type="text" placeholder="Kategori" required />
+            <input id="productUnit" type="text" placeholder="Satuan" required />
+            <input id="productImage" type="text" placeholder="Nama file gambar, contoh: gitar.jpg" />
+            <input id="productDiscount" type="number" placeholder="Diskon %" min="0" max="100" value="0" />
+            <textarea id="productDesc" placeholder="Deskripsi produk" rows="4"></textarea>
+            <button class="btn btn-secondary full" type="submit">Simpan Produk</button>
+          </form>
+          <hr style="margin:20px 0">
+
+<h3>Daftar Produk</h3>
+
+<div id="adminProductList"></div>
+        </section>
+
+        <section class="panel" id="statistik">
+          <div class="panel-head">
+            <h3>Statistik Penjualan</h3>
+            <p>Barang terlaris dan grafik penjualan otomatis tersimpan.</p>
+          </div>
+          <canvas id="salesChart" width="600" height="320"></canvas>
+          <div id="topSellerList" class="top-seller-list"></div>
+        </section>
+      </section>
+
+      <section class="panel" id="riwayat">
+        <div class="panel-head">
+          <h3>Riwayat Transaksi</h3>
+          <p>Daftar transaksi terakhir akan muncul di sini.</p>
+        </div>
+        <div id="historyList" class="history-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal hidden" id="checkoutModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>Pilih Metode Pembayaran</h3>
+        <button class="icon-btn" id="closeCheckoutBtn">✕</button>
+      </div>
+
+      <div class="payment-methods" id="paymentMethods">
+        <button class="pay-chip active" data-pay="cash">Tunai</button>
+        <button class="pay-chip" data-pay="qris">QRIS</button>
+        <button class="pay-chip" data-pay="transfer">Transfer Bank</button>
+        <button class="pay-chip" data-pay="dana">DANA</button>
+        <button class="pay-chip" data-pay="ovo">OVO</button>
+        <button class="pay-chip" data-pay="gopay">GoPay</button>
+        <button class="pay-chip" data-pay="shopeepay">ShopeePay</button>
+        <button class="pay-chip" data-pay="linkaja">LinkAja</button>
+      </div>
+
+      <div id="paymentBox" class="payment-box"></div>
+
+      <div class="modal-summary">
+        <p id="paymentNote">Pilih metode pembayaran di atas.</p>
+        <strong>Total: Rp <span id="modalTotal">0</span></strong>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="cancelCheckoutBtn">Batal</button>
+        <button class="btn btn-primary" id="finishCheckoutBtn">Selesaikan Pembayaran</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="receiptModal">
+    <div class="modal-card receipt-card">
+      <div class="modal-head no-print-head">
+        <h3>Struk Pembelian</h3>
+        <button class="icon-btn" id="closeReceiptBtn">✕</button>
+      </div>
+      <div id="receiptContent" class="receipt-content"></div>
+      <div class="modal-actions no-print-actions">
+        <button class="btn btn-secondary" id="printReceiptBtn">Cetak Struk</button>
+        <button class="btn btn-primary" id="doneReceiptBtn">Selesai</button>
+      </div>
+    </div>
+  </div>
+
+  <template id="productTemplate">
+    <article class="product-card">
+      <div class="product-thumb">
+        <img src="" alt="Produk">
+      </div>
+      <div class="product-body">
+        <div class="product-topline">
+          <span class="badge category-badge"></span>
+          <span class="badge stock-badge"></span>
+        </div>
+        <h4 class="product-title"></h4>
+        <p class="product-desc"></p>
+        <div class="product-bottom">
+          <strong class="price"></strong>
+          <button class="btn btn-primary add-btn">Tambah</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>

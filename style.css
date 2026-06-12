@@ -579,3 +579,20 @@ canvas {
   background:#f59e0b;
   color:white;
 }
+
+.video-wrapper{
+  position:relative;
+  width:100%;
+  padding-bottom:56.25%;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.video-wrapper iframe{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  border:none;
+}
